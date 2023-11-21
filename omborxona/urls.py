@@ -19,10 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 from userApp.views import LoginView
 
-urlpatterns = [
-    path('', LoginView.as_view()),
-    path('admin/', admin.site.urls),
-    path('user/', include('userApp.urls')),
-    path('asosiy/', include('asosiyApp.urls')),
-    path('statistika/', include('statsApp.urls')),
-]
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = ([
+                   path('', LoginView.as_view(), name='Login'),
+                   path('admin/', admin.site.urls),
+                   path('user/', include('userApp.urls')),
+                   path('asosiy/', include('asosiyApp.urls')),
+                   path('statistika/', include('statsApp.urls')),
+               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
